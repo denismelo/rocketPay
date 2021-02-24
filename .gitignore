@@ -28,3 +28,4 @@ rocketPay-*.tar
 /priv/static/
 
 .env*
+.vscode
