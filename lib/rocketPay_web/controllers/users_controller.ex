@@ -12,4 +12,12 @@ defmodule RocketPayWeb.UsersController do
       |> render("create.json", user: user)
     end
   end
+
+  def get(conn, params) do
+    with {:ok, %User{} = user} <- RocketPay.get_user(params) do
+      conn
+      |> put_status(:ok)
+      |> render("user.json", user: user)
+    end
+  end
 end
