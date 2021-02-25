@@ -14,7 +14,7 @@ defmodule RocketPay.Accounts.Deposit do
 
   defp get_account(repo, account_id) do
     case repo.get(Account, account_id) do
-      nil -> {:error, "Account, not found!"}
+      nil -> {:error, "Account not found!"}
       account -> {:ok, account}
     end
   end
@@ -32,7 +32,7 @@ defmodule RocketPay.Accounts.Deposit do
   end
 
   defp handle_cast({:ok, value}, balance), do: Decimal.add(value, balance)
-  defp handle_cast({:error}, _balance), do: {:error, "Invalid deposit value!"}
+  defp handle_cast(:error, _balance), do: {:error, "Invalid deposit value!"}
 
   defp update_account({:error, _reason} = error, _repo, _account), do: error
 
