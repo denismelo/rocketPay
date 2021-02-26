@@ -2,6 +2,7 @@ defmodule RocketPayWeb.AccountsController do
   use RocketPayWeb, :controller
 
   alias RocketPay.{Account, User}
+  alias RocketPay.Accounts.Transactions.Response, as: TransactionResponse
 
   action_fallback RocketPayWeb.FallBackController
 
@@ -18,6 +19,14 @@ defmodule RocketPayWeb.AccountsController do
       conn
       |> put_status(:created)
       |> render("update.json", account: account)
+    end
+  end
+
+  def transaction(conn, params) do
+    with {:ok, %TransactionResponse{} = transaction} <- RocketPay.account_transaction(params) do
+      conn
+      |> put_status(:created)
+      |> render("transaction.json", transaction: transaction)
     end
   end
 end
